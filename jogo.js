@@ -6,16 +6,25 @@ sprites.src = './sprites.png';
 const canvas = document.querySelector('canvas');
 const contexto = canvas.getContext('2d');
 
+const flappyBird = {
+    spriteX: 0,
+    spriteY: 0,
+    largura: 34.24,
+    altura: 24,
+    x: 10,
+    y: 50
+}
+
 function loop() {
     contexto.drawImage(
         sprites,
-        0, 0, // Localização do sprite dentro do arquivo
-        34.24, 24,// Tamanho do recorte na sprite
-        10, 50, // Local onde vai  ser dezenhado o sprite
-        34.24, 24,// Tamanho que vai ser dezenhado no canvas 
+        flappyBird.spriteX, flappyBird.spriteY, // Localização do sprite dentro do arquivo
+        flappyBird.largura, flappyBird.altura, // Tamanho do recorte na sprite
+        flappyBird.x, flappyBird.y, // Local onde vai  ser dezenhado o sprite
+        flappyBird.largura, flappyBird.altura, // Tamanho que vai ser dezenhado no canvas
     );
-    
-    requestAnimationFrame(loop); 
+
+    requestAnimationFrame(loop);
 }
 
 loop();
