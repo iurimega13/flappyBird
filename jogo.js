@@ -26,7 +26,7 @@ const planoDeFundo = {
             planoDeFundo.largura, planoDeFundo.altura,
         );
 
-        contexto.drawImage(
+        contexto.drawImage( // Completa parte faltando
             sprites,
             planoDeFundo.spriteX, planoDeFundo.spriteY,
             planoDeFundo.largura, planoDeFundo.altura,
@@ -53,7 +53,7 @@ const chao = {
             chao.largura, chao.altura, // Tamanho que vai ser dezenhado no canvas
         );
 
-        contexto.drawImage(
+        contexto.drawImage( // Completa parte faltando
             sprites,
             chao.spriteX, chao.spriteY, // Localização do sprite dentro do arquivo
             chao.largura, chao.altura, // Tamanho do recorte na sprite
