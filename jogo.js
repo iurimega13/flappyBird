@@ -71,7 +71,7 @@ const flappyBird = {
     y: 50,
     velocidade: 0,
     garvidade: 0.25,
-    atualiza(){
+    atualiza() {
         flappyBird.velocidade += flappyBird.garvidade
         flappyBird.y += flappyBird.velocidade
     },
@@ -84,6 +84,25 @@ const flappyBird = {
             flappyBird.largura, flappyBird.altura, // Tamanho que vai ser dezenhado no canvas
         );
     }
+};
+
+/// [mensagemGetReady]
+const mensagemGetReady = {
+    spriteX: 134,
+    spriteY: 0,
+    largura: 174,
+    altura: 152,
+    x: (canvas.width / 2) - 174 / 2,
+    y: 50,
+    desenha() {
+        contexto.drawImage(
+            sprites,
+            mensagemGetReady.spriteX, mensagemGetReady.spriteY,
+            mensagemGetReady.largura, mensagemGetReady.altura,
+            mensagemGetReady.x, mensagemGetReady.y,
+            mensagemGetReady.largura, mensagemGetReady.altura
+        );
+    }
 }
 
 function loop() {
@@ -91,6 +110,7 @@ function loop() {
     planoDeFundo.desenha();
     chao.desenha();
     flappyBird.desenha();
+    mensagemGetReady.desenha();
 
     requestAnimationFrame(loop);
 }
