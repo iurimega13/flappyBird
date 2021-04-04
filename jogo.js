@@ -15,6 +15,9 @@ const planoDeFundo = {
     x: 0,
     y: canvas.height - 204,
     desenha() {
+        contexto.fillStyle = '#70c5ce';
+        contexto.fillRect(0, 0, canvas.width, canvas.height)
+
         contexto.drawImage(
             sprites,
             planoDeFundo.spriteX, planoDeFundo.spriteY,
