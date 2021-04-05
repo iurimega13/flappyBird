@@ -1,5 +1,8 @@
 console.log('Flappy Bird');
 
+const somDeHit = new Audio();
+somDeHit.src = './efeitos/hit.wav'
+
 const sprites = new Image();
 sprites.src = './sprites.png';
 
@@ -84,6 +87,7 @@ function criaFlappyBird() {
         atualiza() {
             if (fazColisao(flappyBird, chao)) {
                 console.log("Fez colisão");
+                somDeHit.play();
                 mudaParaTela(telas.INICIO);
                 return;
             }
@@ -141,7 +145,7 @@ function mudaParaTela(novaTela) {
 const telas = { // Telas do jogo
     INICIO: {
         inicializa(){
-            globais.flappyBird = criaFlappyBird();
+            globais.flappyBird = criaFlappyBird(); // Toda vez que inicia cria um novo flappyBird 
         },
         desenha() {
             planoDeFundo.desenha(),
