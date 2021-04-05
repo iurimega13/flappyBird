@@ -76,7 +76,7 @@ function criaChao() {
 }
 
 function fazColisao(flappyBird, chao) {
-    if ((flappyBird.y + flappyBird.altura) >= chao.y) {
+    if ((flappyBird.y + flappyBird.altura) >= globais.chao.y) {
         return true;
     }
     return false;
@@ -94,7 +94,7 @@ function criaFlappyBird() {
         velocidade: 0,
         gravidade: 0.25,
         atualiza() {
-            if (fazColisao(flappyBird, chao)) {
+            if (fazColisao(flappyBird, globais.chao)) {
                 console.log("Fez colisão");
                 somDeHit.play();
                 setTimeout(() => {
@@ -109,10 +109,17 @@ function criaFlappyBird() {
         pula() {
             flappyBird.velocidade = - flappyBird.pulo;
         },
+        movimentos: [
+          { spriteX: 0, spriteY: 0, }, // asa pra cima
+          { spriteX: 0, spriteY: 26, }, // asa no meio 
+          { spriteX: 0, spriteY: 52, }, // asa pra baixo
+          { spriteX: 0, spriteY: 26, }, // asa no meio 
+        ],
         desenha() {
+            const { spriteX, spriteY } = flappyBird.movimentos[2];
             contexto.drawImage(
                 sprites,
-                flappyBird.spriteX, flappyBird.spriteY, // Localização do sprite dentro do arquivo
+                spriteX, spriteY, // Localização do sprite dentro do arquivo
                 flappyBird.largura, flappyBird.altura, // Tamanho do recorte na sprite
                 flappyBird.x, flappyBird.y, // Local onde vai  ser dezenhado o sprite
                 flappyBird.largura, flappyBird.altura, // Tamanho que vai ser dezenhado no canvas
