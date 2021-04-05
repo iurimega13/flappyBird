@@ -100,7 +100,7 @@ function criaFlappyBird() {
                 somDeHit.play();
                 setTimeout(() => {
                     mudaParaTela(telas.INICIO);
-                }, 500);
+                }, 300);
                 return;
             }
 
@@ -186,8 +186,8 @@ const telas = { // Telas do jogo
         },
         desenha() {
             planoDeFundo.desenha(),
-                globais.chao.desenha(),
-                globais.flappyBird.desenha()
+            globais.chao.desenha(),
+            globais.flappyBird.desenha()
             mensagemGetReady.desenha()
         },
         click() {
