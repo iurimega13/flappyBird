@@ -62,6 +62,7 @@ const chao = {
         );
     }
 }
+// Flappy bird
 const flappyBird = {
     spriteX: 0,
     spriteY: 0,
@@ -69,11 +70,15 @@ const flappyBird = {
     altura: 24,
     x: 10,
     y: 50,
+    pulo: 4.5,
     velocidade: 0,
     garvidade: 0.25,
     atualiza() {
         flappyBird.velocidade += flappyBird.garvidade
         flappyBird.y += flappyBird.velocidade
+    },
+    pula(){
+        flappyBird.velocidade =- flappyBird.pulo;
     },
     desenha() {
         contexto.drawImage(
@@ -134,6 +139,9 @@ telas.JOGO = {
         planoDeFundo.desenha(),
             chao.desenha(),
             flappyBird.desenha()
+    },
+    click(){
+        flappyBird.pula();
     },
     atualiza() {
         flappyBird.atualiza()
