@@ -62,6 +62,14 @@ const chao = {
         );
     }
 }
+
+function fazColisao(flappyBird, chao) {
+    if ((flappyBird.y + flappyBird.altura) >= chao.y) {
+        return true;
+    }
+    return false;
+}
+
 // Flappy bird
 const flappyBird = {
     spriteX: 0,
@@ -74,6 +82,12 @@ const flappyBird = {
     velocidade: 0,
     garvidade: 0.25,
     atualiza() {
+        if (fazColisao(flappyBird, chao)) {
+            console.log("Fez colisão");
+            mudaParaTela(telas.INICIO);
+            return;
+        }
+        
         flappyBird.velocidade += flappyBird.garvidade
         flappyBird.y += flappyBird.velocidade
     },
