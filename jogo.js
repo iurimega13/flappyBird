@@ -88,7 +88,9 @@ function criaFlappyBird() {
             if (fazColisao(flappyBird, chao)) {
                 console.log("Fez colisão");
                 somDeHit.play();
-                mudaParaTela(telas.INICIO);
+                setTimeout(() => {
+                    mudaParaTela(telas.INICIO);
+                }, 500);
                 return;
             }
             
