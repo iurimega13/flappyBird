@@ -50,9 +50,9 @@ function criaChao() {
         y: canvas.height - 112,
         atualiza() {
             const movimentoDoChao = 1;
-
-
-            chao.x -= movimentoDoChao;
+            const repeteEm = chao.largura / 2;
+            const movimentacao = chao.x - movimentoDoChao;
+            chao.x = movimentacao % repeteEm;
         },
         desenha() {
             contexto.drawImage(
@@ -161,7 +161,7 @@ const telas = { // Telas do jogo
         },
         desenha() {
             planoDeFundo.desenha(),
-            globais.chao.desenha(),
+                globais.chao.desenha(),
                 globais.flappyBird.desenha()
             mensagemGetReady.desenha()
         },
@@ -177,14 +177,15 @@ const telas = { // Telas do jogo
 telas.JOGO = {
     desenha() {
         planoDeFundo.desenha(),
-        globais.chao.desenha(),
+            globais.chao.desenha(),
             globais.flappyBird.desenha()
     },
     click() {
         globais.flappyBird.pula();
     },
     atualiza() {
-        globais.flappyBird.atualiza()
+        globais.flappyBird.atualiza();
+        globais.chao.atualiza();
     }
 }
 
