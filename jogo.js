@@ -39,31 +39,40 @@ const planoDeFundo = {
     },
 };
 
-// Chao
-const chao = {
-    spriteX: 0,
-    spriteY: 610,
-    largura: 224,
-    altura: 112,
-    x: 0,
-    y: canvas.height - 112,
-    desenha() {
-        contexto.drawImage(
-            sprites,
-            chao.spriteX, chao.spriteY, // Localização do sprite dentro do arquivo
-            chao.largura, chao.altura, // Tamanho do recorte na sprite
-            chao.x, chao.y, // Local onde vai  ser dezenhado o sprite
-            chao.largura, chao.altura, // Tamanho que vai ser dezenhado no canvas
-        );
+function criaChao() {
+    // Chao
+    const chao = {
+        spriteX: 0,
+        spriteY: 610,
+        largura: 224,
+        altura: 112,
+        x: 0,
+        y: canvas.height - 112,
+        atualiza() {
+            const movimentoDoChao = 1;
 
-        contexto.drawImage( // Completa parte faltando
-            sprites,
-            chao.spriteX, chao.spriteY, // Localização do sprite dentro do arquivo
-            chao.largura, chao.altura, // Tamanho do recorte na sprite
-            (chao.x + chao.largura), chao.y, // Local onde vai  ser dezenhado o sprite
-            chao.largura, chao.altura, // Tamanho que vai ser dezenhado no canvas
-        );
+
+            chao.x -= movimentoDoChao;
+        },
+        desenha() {
+            contexto.drawImage(
+                sprites,
+                chao.spriteX, chao.spriteY, // Localização do sprite dentro do arquivo
+                chao.largura, chao.altura, // Tamanho do recorte na sprite
+                chao.x, chao.y, // Local onde vai  ser dezenhado o sprite
+                chao.largura, chao.altura, // Tamanho que vai ser dezenhado no canvas
+            );
+
+            contexto.drawImage( // Completa parte faltando
+                sprites,
+                chao.spriteX, chao.spriteY, // Localização do sprite dentro do arquivo
+                chao.largura, chao.altura, // Tamanho do recorte na sprite
+                (chao.x + chao.largura), chao.y, // Local onde vai  ser dezenhado o sprite
+                chao.largura, chao.altura, // Tamanho que vai ser dezenhado no canvas
+            );
+        }
     }
+    return chao;
 }
 
 function fazColisao(flappyBird, chao) {
@@ -93,12 +102,12 @@ function criaFlappyBird() {
                 }, 500);
                 return;
             }
-            
+
             flappyBird.velocidade += flappyBird.gravidade
             flappyBird.y += flappyBird.velocidade
         },
-        pula(){
-            flappyBird.velocidade =- flappyBird.pulo;
+        pula() {
+            flappyBird.velocidade = - flappyBird.pulo;
         },
         desenha() {
             contexto.drawImage(
@@ -146,20 +155,21 @@ function mudaParaTela(novaTela) {
 
 const telas = { // Telas do jogo
     INICIO: {
-        inicializa(){
+        inicializa() {
             globais.flappyBird = criaFlappyBird(); // Toda vez que inicia cria um novo flappyBird 
+            globais.chao = criaChao(); // Toda vez que inicia cria um novo chão
         },
         desenha() {
             planoDeFundo.desenha(),
-            chao.desenha(),
-            globais.flappyBird.desenha()
+            globais.chao.desenha(),
+                globais.flappyBird.desenha()
             mensagemGetReady.desenha()
         },
-        click(){
+        click() {
             mudaParaTela(telas.JOGO);
         },
         atualiza() {
-
+            globais.chao.atualiza();
         }
     }
 };
@@ -167,10 +177,10 @@ const telas = { // Telas do jogo
 telas.JOGO = {
     desenha() {
         planoDeFundo.desenha(),
-            chao.desenha(),
+        globais.chao.desenha(),
             globais.flappyBird.desenha()
     },
-    click(){
+    click() {
         globais.flappyBird.pula();
     },
     atualiza() {
