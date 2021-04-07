@@ -54,31 +54,52 @@ function criaCanos() {
         },
         espaco: 80,
         desenha() {
-            const yRandom = -150;
-            const espacamentoEntreCanos = 50;
 
-            // Cano do Céu
-            const canoCeuX = 220;
-            const canoCeuY = yRandom;
-            contexto.drawImage(
-                sprites,
-                canos.ceu.spriteX, canos.ceu.spriteY,
-                canos.largura, canos.altura,
-                canoCeuX, canoCeuY,
-                canos.largura, canos.altura
-            )
+            canos.pares.forEach(function (par) {
+                const yRandom = par.y;
+                const espacamentoEntreCanos = 50;
 
-            // Cano do Chão
-            const canoChaoX = 220;
-            const canoChaoY = canos.altura + espacamentoEntreCanos + yRandom;
-            contexto.drawImage(
-                sprites,
-                canos.chao.spriteX, canos.chao.spriteY,
-                canos.largura, canos.altura,
-                canoChaoX, canoChaoY,
-                canos.largura, canos.altura
-            )
-        }
+                // Cano do Céu
+                const canoCeuX = par.x;
+                const canoCeuY = yRandom;
+                contexto.drawImage(
+                    sprites,
+                    canos.ceu.spriteX, canos.ceu.spriteY,
+                    canos.largura, canos.altura,
+                    canoCeuX, canoCeuY,
+                    canos.largura, canos.altura
+                )
+
+                // Cano do Chão
+                const canoChaoX = par.x;
+                const canoChaoY = canos.altura + espacamentoEntreCanos + yRandom;
+                contexto.drawImage(
+                    sprites,
+                    canos.chao.spriteX, canos.chao.spriteY,
+                    canos.largura, canos.altura,
+                    canoChaoX, canoChaoY,
+                    canos.largura, canos.altura
+                )
+            })
+
+        },
+        pares: [{
+        }],
+        atualiza() {
+            const passou100Frames = frames % 100 === 0;
+            if (passou100Frames) {
+                canos.pares.push({
+                    x: 200,
+                    y: -150 * (Math.random() + 1)
+                })
+            }
+            
+            
+            canos.pares.forEach(function(par) {
+                par.x = par.x - 2;
+                
+            })
+        },
     }
     return canos;
 }
@@ -240,6 +261,7 @@ const telas = { // Telas do jogo
         },
         atualiza() {
             globais.chao.atualiza();
+            globais.cano.atualiza();
         }
     }
 };
