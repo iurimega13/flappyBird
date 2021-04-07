@@ -40,8 +40,51 @@ const planoDeFundo = {
     },
 };
 
+function criaCanos() {
+    const canos = {
+        largura: 52,
+        altura: 400,
+        chao: {
+            spriteX: 0,
+            spriteY: 169
+        },
+        ceu: {
+            spriteX: 52,
+            spriteY: 169
+        },
+        espaco: 80,
+        desenha() {
+            const yRandom = -150;
+            const espacamentoEntreCanos = 50;
+
+            // Cano do Céu
+            const canoCeuX = 220;
+            const canoCeuY = yRandom;
+            contexto.drawImage(
+                sprites,
+                canos.ceu.spriteX, canos.ceu.spriteY,
+                canos.largura, canos.altura,
+                canoCeuX, canoCeuY,
+                canos.largura, canos.altura
+            )
+
+            // Cano do Chão
+            const canoChaoX = 220;
+            const canoChaoY = canos.altura + espacamentoEntreCanos + yRandom;
+            contexto.drawImage(
+                sprites,
+                canos.chao.spriteX, canos.chao.spriteY,
+                canos.largura, canos.altura,
+                canoChaoX, canoChaoY,
+                canos.largura, canos.altura
+            )
+        }
+    }
+    return canos;
+}
+
+// Chao
 function criaChao() {
-    // Chao
     const chao = {
         spriteX: 0,
         spriteY: 610,
@@ -75,15 +118,15 @@ function criaChao() {
     }
     return chao;
 }
-
+// Faz colisão com o chão
 function fazColisao(flappyBird, chao) {
     if ((flappyBird.y + flappyBird.altura) >= globais.chao.y) {
         return true;
     }
     return false;
 }
+// Flappy bird
 function criaFlappyBird() {
-    // Flappy bird
     const flappyBird = {
         spriteX: 0,
         spriteY: 0,
@@ -183,12 +226,14 @@ const telas = { // Telas do jogo
         inicializa() {
             globais.flappyBird = criaFlappyBird(); // Toda vez que inicia cria um novo flappyBird 
             globais.chao = criaChao(); // Toda vez que inicia cria um novo chão
+            globais.cano = criaCanos();
         },
         desenha() {
             planoDeFundo.desenha(),
-            globais.chao.desenha(),
-            globais.flappyBird.desenha()
-            mensagemGetReady.desenha()
+                globais.chao.desenha(),
+                globais.flappyBird.desenha()
+            globais.cano.desenha();
+            // mensagemGetReady.desenha()
         },
         click() {
             mudaParaTela(telas.JOGO);
