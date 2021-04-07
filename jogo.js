@@ -89,7 +89,7 @@ function criaCanos() {
             const passou100Frames = frames % 100 === 0;
             if (passou100Frames) {
                 canos.pares.push({
-                    x: 200,
+                    x: canvas.width,
                     y: -150 * (Math.random() + 1)
                 })
             }
