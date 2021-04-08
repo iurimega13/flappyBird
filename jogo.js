@@ -331,6 +331,12 @@ window.addEventListener('click', function () {
     if (telaAtiva.click) {
         telaAtiva.click();
     }
+    document.body.onkeyup = function (e) {
+        var key = event.which || event.keyCode;
+        if (key === 32) {
+            telaAtiva.click();
+        }
+    }
 })
 
 mudaParaTela(telas.INICIO)
