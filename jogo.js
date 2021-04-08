@@ -80,7 +80,7 @@ function criaCanos() {
                     canoChaoX, canoChaoY,
                     canos.largura, canos.altura
                 ),
-                par.canoCeu = {
+                    par.canoCeu = {
                         x: canoCeuX,
                         y: canos.altura + canoCeuY
                     }
@@ -124,7 +124,10 @@ function criaCanos() {
                 if (canos.temColisaoComOFlappyBird(par)) {
                     console.log('Você perdeu!')
                     somDeHit.play();
-                    mudaParaTela(Telas.INICIO);
+                    setTimeout(() => {
+                        mudaParaTela(telas.INICIO);
+                    }, 0);
+                    return;
                 }
 
                 if (par.x + canos.largura <= 0) {
