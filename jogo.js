@@ -79,12 +79,35 @@ function criaCanos() {
                     canos.largura, canos.altura,
                     canoChaoX, canoChaoY,
                     canos.largura, canos.altura
-                )
+                ),
+                par.canoCeu = {
+                        x: canoCeuX,
+                        y: canos.altura + canoCeuY
+                    }
+                par.canoChao = {
+                    x: canoChaoX,
+                    y: canoChaoY
+                }
             })
 
         },
         pares: [{
         }],
+        temColisaoComOFlappyBird(par) {
+            const cabecaDoFlappy = globais.flappyBird.y;
+            const peDoFlappy = globais.flappyBird.y + globais.flappyBird.altura;
+
+            if ((globais.flappyBird.x + globais.flappyBird.largura) >= par.x) {
+                if (cabecaDoFlappy <= par.canoCeu.y) {
+                    return true;
+                }
+
+                if (peDoFlappy >= par.canoChao.y) {
+                    return true;
+                }
+            }
+            return false;
+        },
         atualiza() {
             const passou100Frames = frames % 100 === 0;
             if (passou100Frames) {
@@ -97,6 +120,12 @@ function criaCanos() {
 
             canos.pares.forEach(function (par) {
                 par.x = par.x - 2;
+
+                if (canos.temColisaoComOFlappyBird(par)) {
+                    console.log('Você perdeu!')
+                    somDeHit.play();
+                    mudaParaTela(Telas.INICIO);
+                }
 
                 if (par.x + canos.largura <= 0) {
                     canos.pares.shift();
@@ -256,9 +285,9 @@ const telas = { // Telas do jogo
         },
         desenha() {
             planoDeFundo.desenha(),
-            globais.flappyBird.desenha(),
-            globais.chao.desenha(),
-            mensagemGetReady.desenha()
+                globais.flappyBird.desenha(),
+                globais.chao.desenha(),
+                mensagemGetReady.desenha()
         },
         click() {
             mudaParaTela(telas.JOGO);
@@ -272,7 +301,7 @@ const telas = { // Telas do jogo
 telas.JOGO = {
     desenha() {
         planoDeFundo.desenha(),
-        globais.cano.desenha()
+            globais.cano.desenha()
         globais.chao.desenha(),
             globais.flappyBird.desenha()
     },
