@@ -57,7 +57,7 @@ function criaCanos() {
 
             canos.pares.forEach(function (par) {
                 const yRandom = par.y;
-                const espacamentoEntreCanos = 100;
+                const espacamentoEntreCanos = 80;
 
                 // Cano do Céu
                 const canoCeuX = par.x;
