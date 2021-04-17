@@ -257,7 +257,12 @@ function criaPlacar() {
             contexto.fillText(`${placar.pontuacao}`, canvas.width - 15, 35)
         },
         atualiza() {
+            const intervaloDeFrames = 150;
+            const passouOIntervalo = frames % intervaloDeFrames === 0;
 
+            if (passouOIntervalo) {
+                placar.pontuacao = placar.pontuacao + 1;
+            }
         }
     };
     return placar;
